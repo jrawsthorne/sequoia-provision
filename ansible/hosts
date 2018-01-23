@@ -9,8 +9,8 @@
 172.23.106.96 # kvm638, query
 172.23.99.253
 172.23.104.41
-kvm-s713.sc.couchbase.com  # remote 1
-xcp-s731.sc.couchbase.com  # remote 2
+172.23.99.46
+172.23.121.59
 [ubuntuclient]
 172.23.99.156
 
