@@ -22,6 +22,10 @@
     rpm_path: "/tmp/couchbase.rpm"
   remote_user: root
   tasks:
+  - name: set vm.swappiness to 0
+    shell: "echo 0 > /proc/sys/vm/swappiness"
+  - name: disable thp
+    shell: "echo never > /sys/kernel/mm/transparent_hugepage/enabled"
   - name: cleanup old pkg dirs
     shell: "rm {{rpm_path}} 2>/dev/null"
     ignore_errors: True
