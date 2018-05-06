@@ -52,6 +52,9 @@
 172.23.96.252
 172.23.96.251
 
+[centosclient2]
+172.23.104.254
+
 [windows]
 172.23.99.148
 172.23.99.150
@@ -68,10 +71,12 @@
 [windowsclient]
 [centosclient]
 [ubuntuclient]
+[centosclient2]
 
 [couchbaseservers]
 [ubuntu]
 [centos]
+[centos2]
 [windows]
 
 [syncgateways]
