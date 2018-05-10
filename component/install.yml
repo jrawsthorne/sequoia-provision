@@ -10,7 +10,7 @@
   - name: start elastic search
     shell: "/root/start_es.sh"
 
-- hosts: centos 
+- hosts: centoscomponent
   vars:
     ver_no: "{{VER|default('4.5.0')}}"
     build_no:  "{{BUILD_NO|default(2601)}}"
