@@ -55,6 +55,10 @@
     shell: "rm -rf /data/*"
   - name: rm index dir
     shell: "rm -rf /index/*"
+  - name: set /data to be owned by couchbase
+    shell: "chown couchbase:couchbase /data"
+  - name: chmod /data to 777
+    shell: "chmod 777 /data"
   - name: stop memcached
     shell: "ps aux | grep 'memcached' | awk '{print $2}' | xargs kill -s 9"
     ignore_errors: True
