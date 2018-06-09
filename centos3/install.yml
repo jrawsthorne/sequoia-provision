@@ -57,6 +57,7 @@
     shell: "rm -rf /index/*"
   - name: remove all hidden files
     shell: "rm -rf /data/.*"
+    ignore_errors: True
   - name: set /data to be owned by couchbase
     shell: "chown couchbase:couchbase /data"
   - name: chmod /data to 777
