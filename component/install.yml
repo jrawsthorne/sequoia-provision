@@ -1,15 +1,5 @@
 
 ---
-- hosts: syncgateways
-  tasks:
-  - name: start gateway
-    shell: "/root/start_gateway.sh"
-
-- hosts: elasticsearch
-  tasks:
-  - name: start elastic search
-    shell: "/root/start_es.sh"
-
 - hosts: centoscomponent
   vars:
     ver_no: "{{VER|default('4.5.0')}}"
@@ -71,4 +61,7 @@
     shell: iptables -F
   - name: wait for install done
     wait_for: port=8091 delay=10
+  - name: intall lsof
+    package: name=lsof state=present
+    ignore_errors: True
 
