@@ -26,6 +26,19 @@
     shell: "echo 0 > /proc/sys/vm/swappiness"
   - name: disable thp
     shell: "echo never > /sys/kernel/mm/transparent_hugepage/enabled"
+  - name: remove core conf file if any
+    shell: "rm -f /etc/security/limits.d/core.conf"
+    ignore_errors: True
+  - name: create core conf file
+    shell: "touch /etc/security/limits.d/core.conf"
+  - name: append hard core limit
+    shell: "echo 'couchbase       hard        core        unlimited' >> /etc/security/limits.d/core.conf"
+  - name: append soft core limit
+    shell: "echo 'couchbase       soft        core        unlimited' >> /etc/security/limits.d/core.conf"
+  - name: set default limit core to infinity
+    shell: "echo 'DefaultLimitCORE=infinity' > /etc/systemd/system.conf"
+  - name: reload systemctl daemon
+    shell: "systemctl daemon-reexec"
   - name: disable thp defrag
     shell: "echo never > /sys/kernel/mm/transparent_hugepage/defrag"
   - name: cleanup old pkg dirs
