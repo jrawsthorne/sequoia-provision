@@ -35,8 +35,10 @@
     shell: "echo 'couchbase       hard        core        unlimited' >> /etc/security/limits.d/core.conf"
   - name: append soft core limit
     shell: "echo 'couchbase       soft        core        unlimited' >> /etc/security/limits.d/core.conf"
-  - name: set default limit core to infinity
-    shell: "echo 'DefaultLimitCORE=infinity' > /etc/systemd/system.conf"
+  - name: set default limit core to infinity step 1
+    shell: "echo '[Manager]' > /etc/systemd/system.conf"
+  - name: set default limit core to infinity step 2
+    shell: "echo 'DefaultLimitCORE=infinity' >> /etc/systemd/system.conf"
   - name: reload systemctl daemon
     shell: "systemctl daemon-reexec"
   - name: disable thp defrag
