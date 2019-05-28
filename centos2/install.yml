@@ -68,6 +68,7 @@
   - debug: msg="Download {{build_url}}"
   - name: download binary
     get_url: url="{{build_url}}" dest="{{rpm_path}}"
+    serial: 5
   - name: install couchbase
     yum: name="{{rpm_path}}"
   - name: alt start 
