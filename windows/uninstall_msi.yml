@@ -8,11 +8,14 @@
     raw: " taskkill /F /T /IM msiexec32.exe" 
     ignore_errors: true
   - name: stop install 
-    raw: "cmd /c schtasks /end /tn installme" 
+    raw: "cmd /c schtasks /end /tn installme"
+    ignore_errors: true
   - name: stop removes 
-    raw: "cmd /c schtasks /end /tn removeme" 
+    raw: "cmd /c schtasks /end /tn removeme"
+    ignore_errors: true
   - name: stop upgrades 
-    raw: "cmd /c schtasks /end /tn upgrademe" 
+    raw: "cmd /c schtasks /end /tn upgrademe"
+    ignore_errors: true
   - name: kill sherlock 
     raw: "taskkill /F /T /IM {{ver_no}}-*" 
     ignore_errors: true
