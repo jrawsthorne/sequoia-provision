@@ -172,9 +172,6 @@
 [syncgateways2]
 172.23.104.254
 
-[syncgateways3]
-172.23.96.40
-
 [elasticsearch2]
 172.23.104.254
 
@@ -183,6 +180,9 @@
 
 [elasticsearch3]
 172.23.96.165
+
+[syncgateways4]
+172.23.96.40
 
 [windows:vars]
 ansible_connection=winrm
