@@ -1,5 +1,5 @@
 ---
-- hosts: syncgateways3
+- hosts: syncgateways4
   tasks:
   - name: start gateway
     shell: "/root/start_gateway.sh"
