@@ -149,8 +149,21 @@
 [windowsclient]
 172.23.96.40
 
+[windows2]
+172.23.121.151
+172.23.120.245
+172.23.121.1
+172.23.121.61
+172.23.121.63
+172.23.121.94
+172.23.121.64
+172.23.121.93
+[windowsclient2]
+172.23.96.45
+
 [docker]
 [windowsclient]
+[windowsclient2]
 [centosclient]
 [ubuntuclient]
 [centosclient2]
@@ -162,6 +175,7 @@
 [centos2]
 [centos3]
 [windows]
+[windows2]
 
 [syncgateways]
 172.23.99.23
@@ -184,10 +198,18 @@
 [syncgateways4]
 172.23.96.40
 
+[syncgateways5]
+172.23.96.45
+
 [windows:vars]
 ansible_connection=winrm
 ansible_ssh_user=Administrator
 ansible_ssh_pass=Membase123 
+
+[windows2:vars]
+ansible_connection=winrm
+ansible_ssh_user=Administrator
+ansible_ssh_pass=Membase123
 
 [all:vars]
 ansible_connection=ssh 
