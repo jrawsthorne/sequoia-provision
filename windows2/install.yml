@@ -1,9 +1,9 @@
 ---
-- hosts: syncgateways4
+- hosts: syncgateways5
   tasks:
   - name: start gateway
     shell: "/root/start_gateway.sh"
-- hosts: windows 
+- hosts: windows2 
   vars:
     flavor:  "{{FLAVOR|default('watson')}}"
     ver_no:  "{{VER|default('4.5.0')}}"
