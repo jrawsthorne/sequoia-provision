@@ -74,11 +74,16 @@
     shell: "rm -rf /data/.*"
     ignore_errors: True
   - name: create backup archive location
-    shell: "mkdir /data/archive"
+    file:
+      path: /data/archive
+      state: directory
+      owner: couchbase
+      group: couchbase
+      mode: 777
   - name: set /data to be owned by couchbase
     shell: "chown -R couchbase:couchbase /data"
   - name: chmod /data to 777
-    shell: "chmod 777 /data"
+    shell: "chmod -R 777 /data"
   - name: stop memcached
     shell: "ps aux | grep 'memcached' | awk '{print $2}' | xargs kill -s 9"
     ignore_errors: True
