@@ -242,3 +242,17 @@ ansible_connection=ssh
 ansible_ssh_user=root 
 ansible_ssh_pass=couchbase
 
+[centoscbshostsforsgw]
+172.23.97.215
+172.23.97.232
+172.23.97.237
+172.23.97.235
+172.23.97.236
+172.23.97.227
+172.23.97.216
+172.23.97.217
+172.23.107.5
+172.23.107.2
+
+[centossgwhosts]
+172.23.107.4
