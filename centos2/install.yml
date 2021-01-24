@@ -73,6 +73,13 @@
   - name: remove all hidden files
     shell: "rm -rf /data/.*"
     ignore_errors: True
+  - name: create couchbase directory
+    file:
+      path: /data/couchbase
+      state: directory
+      owner: couchbase
+      group: couchbase
+      mode: 777
   - name: create backup archive location
     file:
       path: /data/archive
