@@ -41,7 +41,6 @@
 
 # Remove sync_gateway
 - hosts: syncgateways2
-  become: yes
   tasks:
   # Stop sync_gateway service
   - name: SYNC GATEWAY | Stop sync_gateway service
@@ -73,7 +72,6 @@
 
     # Delete sync_gateway binary
   - name: SYNC GATEWAY | Delete sync_gateway binary
-    become: yes
     file: path=/opt/couchbase-sync-gateway state=absent
     ignore_errors: yes
 

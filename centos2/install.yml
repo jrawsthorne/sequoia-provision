@@ -1,7 +1,6 @@
 ---
 - hosts: syncgateways2
   any_errors_fatal: true
-  become: yes
   vars:
     sgw_ver_no: "{{SGW_VER|default('2.8.0')}}"
     sgw_build_no: "{{SGW_BUILD_NO|default('374')}}"
@@ -27,7 +26,6 @@
     sgw_package_url: "{{sgw_base_url}}/{{sgw_package }}"
   tasks:
   - name: SYNC GATEWAY | Install sync_gateway rpm
-    become: yes
     shell: "rpm -i /tmp/{{sgw_package}}"
 
 - hosts: elasticsearch2
