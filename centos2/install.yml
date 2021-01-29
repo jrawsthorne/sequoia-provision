@@ -1,9 +1,34 @@
-
 ---
 - hosts: syncgateways2
+  any_errors_fatal: true
+  become: yes
+  vars:
+    sgw_ver_no: "{{SGW_VER|default('2.8.0')}}"
+    sgw_build_no: "{{SGW_BUILD_NO|default('374')}}"
+    sgw_flavor:  "{{SGW_FLAVOR|default('enterprise')}}"
+    sgw_base_url: "http://172.23.126.166/builds/latestbuilds/sync_gateway/{{sgw_ver_no}}/{{SGW_BUILD_NO}}"
+    sgw_package: "couchbase-sync-gateway-{{sgw_flavor}}_{{sgw_ver_no}}-{{sgw_build_no}}_x86_64.rpm"
+    sgw_package_url: "{{sgw_base_url}}/{{sgw_package }}"
+    couchbase_server_primary_node:
+  remote_user: root
   tasks:
-  - name: start gateway
-    shell: "/root/start_gateway.sh"
+  - name: SYNC GATEWAY |  Download sync_gateway rpm {{sgw_package_url}}
+    get_url: url={{sgw_package_url}} dest=/tmp/{{sgw_package}} validate_certs=False
+
+# Install sync_gateway
+- hosts: syncgateways2
+  any_errors_fatal: true
+  vars:
+    sgw_ver_no: "{{SGW_VER|default('2.8.0')}}"
+    sgw_build_no: "{{SGW_BUILD_NO|default('374')}}"
+    sgw_flavor:  "{{SGW_FLAVOR|default('enterprise')}}"
+    sgw_base_url: "http://172.23.126.166/builds/latestbuilds/sync_gateway/{{sgw_ver_no}}/{{SGW_BUILD_NO}}"
+    sgw_package: "couchbase-sync-gateway-{{sgw_flavor}}_{{sgw_ver_no}}-{{sgw_build_no}}_x86_64.rpm"
+    sgw_package_url: "{{sgw_base_url}}/{{sgw_package }}"
+  tasks:
+  - name: SYNC GATEWAY | Install sync_gateway rpm
+    become: yes
+    shell: rpm -i /tmp/{{sgw_package}}
 
 - hosts: elasticsearch2
   tasks:
