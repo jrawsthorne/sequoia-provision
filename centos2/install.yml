@@ -13,7 +13,7 @@
   remote_user: root
   tasks:
   - name: SYNC GATEWAY |  Download sync_gateway rpm {{sgw_package_url}}
-    get_url: url={{sgw_package_url}} dest=/tmp/{{sgw_package}} validate_certs=False
+    get_url: url="{{sgw_package_url}}" dest="/tmp/{{sgw_package}}" validate_certs=False
 
 # Install sync_gateway
 - hosts: syncgateways2
@@ -28,7 +28,7 @@
   tasks:
   - name: SYNC GATEWAY | Install sync_gateway rpm
     become: yes
-    shell: rpm -i /tmp/{{sgw_package}}
+    shell: "rpm -i /tmp/{{sgw_package}}"
 
 - hosts: elasticsearch2
   tasks:
