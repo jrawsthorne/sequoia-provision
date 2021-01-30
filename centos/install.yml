@@ -6,7 +6,7 @@
     sgw_ver_no: "{{SGW_VER|default('2.8.0')}}"
     sgw_build_no: "{{SGW_BUILD_NO|default('374')}}"
     sgw_flavor:  "{{SGW_FLAVOR|default('enterprise')}}"
-    sgw_base_url: "http://172.23.126.166/builds/latestbuilds/sync_gateway/{{sgw_ver_no}}/{{SGW_BUILD_NO}}"
+    sgw_base_url: "http://172.23.126.166/builds/latestbuilds/sync_gateway/{{sgw_ver_no}}/{{sgw_build_no}}"
     sgw_package: "couchbase-sync-gateway-{{sgw_flavor}}_{{sgw_ver_no}}-{{sgw_build_no}}_x86_64.rpm"
     sgw_package_url: "{{sgw_base_url}}/{{sgw_package }}"
     couchbase_server_primary_node:
@@ -22,7 +22,7 @@
     sgw_ver_no: "{{SGW_VER|default('2.8.0')}}"
     sgw_build_no: "{{SGW_BUILD_NO|default('374')}}"
     sgw_flavor:  "{{SGW_FLAVOR|default('enterprise')}}"
-    sgw_base_url: "http://172.23.126.166/builds/latestbuilds/sync_gateway/{{sgw_ver_no}}/{{SGW_BUILD_NO}}"
+    sgw_base_url: "http://172.23.126.166/builds/latestbuilds/sync_gateway/{{sgw_ver_no}}/{{sgw_build_no}}"
     sgw_package: "couchbase-sync-gateway-{{sgw_flavor}}_{{sgw_ver_no}}-{{sgw_build_no}}_x86_64.rpm"
     sgw_package_url: "{{sgw_base_url}}/{{sgw_package }}"
   tasks:
