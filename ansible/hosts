@@ -258,3 +258,7 @@ ansible_ssh_pass=couchbase
 
 [centossgwhosts]
 172.23.106.103
+
+[component2sgwhosts]
+172.23.106.103
+172.23.104.124
