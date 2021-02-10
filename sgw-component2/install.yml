@@ -92,10 +92,8 @@
     package: name=lsof state=present
     ignore_errors: True
 
-# Download sync_gateway
 - hosts: component2sgwhosts
   any_errors_fatal: true
-  become: yes
   vars:
     sgw_ver_no: "{{SGW_VER|default('2.8.0')}}"
     sgw_build_no: "{{SGW_BUILD_NO|default('374')}}"
@@ -107,12 +105,11 @@
   remote_user: root
   tasks:
   - name: SYNC GATEWAY |  Download sync_gateway rpm {{sgw_package_url}}
-    get_url: url={{sgw_package_url}} dest=/tmp/{{sgw_package}} validate_certs=False
+    get_url: url="{{sgw_package_url}}" dest="/tmp/{{sgw_package}}" validate_certs=False
 
 # Install sync_gateway
 - hosts: component2sgwhosts
   any_errors_fatal: true
-
   vars:
     sgw_ver_no: "{{SGW_VER|default('2.8.0')}}"
     sgw_build_no: "{{SGW_BUILD_NO|default('374')}}"
@@ -122,7 +119,4 @@
     sgw_package_url: "{{sgw_base_url}}/{{sgw_package }}"
   tasks:
   - name: SYNC GATEWAY | Install sync_gateway rpm
-    become: yes
-    shell: rpm -i /tmp/{{sgw_package}}
-
-  
+    shell: "rpm -i /tmp/{{sgw_package}}"

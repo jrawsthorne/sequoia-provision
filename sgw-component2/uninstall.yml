@@ -41,7 +41,6 @@
 
 # Remove sync_gateway
 - hosts: component2sgwhosts
-  become: yes
   tasks:
   # Stop sync_gateway service
   - name: SYNC GATEWAY | Stop sync_gateway service
@@ -55,25 +54,24 @@
     ignore_errors: yes
 
     # Remove sync_gateway package
-  - name: SYNC GATEWAY | Uninstall sync_gateway rpm  
+  - name: SYNC GATEWAY | Uninstall sync_gateway rpm
     shell: rpm -e couchbase-sync-gateway
     ignore_errors: yes
     when: ansible_distribution == "CentOS" or ansible_distribution == "RedHat"
 
     # Remove sync_gateway package
-  - name: SYNC GATEWAY | Uninstall sync_gateway deb  
+  - name: SYNC GATEWAY | Uninstall sync_gateway deb
     shell: dpkg -r couchbase-sync-gateway
     ignore_errors: yes
     when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
     # Remove sync_gateway service
-  - name: SYNC GATEWAY | Remove sync_gateway service 
+  - name: SYNC GATEWAY | Remove sync_gateway service
     file: path=/usr/lib/systemd/system/sync_gateway.service state=absent
     ignore_errors: yes
 
     # Delete sync_gateway binary
   - name: SYNC GATEWAY | Delete sync_gateway binary
-    become: yes
     file: path=/opt/couchbase-sync-gateway state=absent
     ignore_errors: yes
 
