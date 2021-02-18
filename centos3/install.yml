@@ -1,9 +1,32 @@
-
 ---
 - hosts: syncgateways3
+  any_errors_fatal: true
+  vars:
+    sgw_ver_no: "{{SGW_VER|default('2.8.0')}}"
+    sgw_build_no: "{{SGW_BUILD_NO|default('374')}}"
+    sgw_flavor:  "{{SGW_FLAVOR|default('enterprise')}}"
+    sgw_base_url: "http://172.23.126.166/builds/latestbuilds/sync_gateway/{{sgw_ver_no}}/{{sgw_build_no}}"
+    sgw_package: "couchbase-sync-gateway-{{sgw_flavor}}_{{sgw_ver_no}}-{{sgw_build_no}}_x86_64.rpm"
+    sgw_package_url: "{{sgw_base_url}}/{{sgw_package }}"
+    couchbase_server_primary_node:
+  remote_user: root
   tasks:
-  - name: start gateway
-    shell: "/root/start_gateway.sh"
+  - name: SYNC GATEWAY |  Download sync_gateway rpm {{sgw_package_url}}
+    get_url: url="{{sgw_package_url}}" dest="/tmp/{{sgw_package}}" validate_certs=False
+
+# Install sync_gateway
+- hosts: syncgateways3
+  any_errors_fatal: true
+  vars:
+    sgw_ver_no: "{{SGW_VER|default('2.8.0')}}"
+    sgw_build_no: "{{SGW_BUILD_NO|default('374')}}"
+    sgw_flavor:  "{{SGW_FLAVOR|default('enterprise')}}"
+    sgw_base_url: "http://172.23.126.166/builds/latestbuilds/sync_gateway/{{sgw_ver_no}}/{{sgw_build_no}}"
+    sgw_package: "couchbase-sync-gateway-{{sgw_flavor}}_{{sgw_ver_no}}-{{sgw_build_no}}_x86_64.rpm"
+    sgw_package_url: "{{sgw_base_url}}/{{sgw_package }}"
+  tasks:
+  - name: SYNC GATEWAY | Install sync_gateway rpm
+    shell: "rpm -i /tmp/{{sgw_package}}"
 
 - hosts: elasticsearch3
   tasks:
@@ -58,6 +81,20 @@
   - name: remove all hidden files
     shell: "rm -rf /data/.*"
     ignore_errors: True
+  - name: create couchbase directory
+    file:
+      path: /data/couchbase
+      state: directory
+      owner: couchbase
+      group: couchbase
+      mode: 777
+  - name: create backup archive location
+    file:
+      path: /data/archive
+      state: directory
+      owner: couchbase
+      group: couchbase
+      mode: 777
   - name: set /data to be owned by couchbase
     shell: "chown couchbase:couchbase /data"
   - name: chmod /data to 777
@@ -65,9 +102,36 @@
   - name: stop memcached
     shell: "ps aux | grep 'memcached' | awk '{print $2}' | xargs kill -s 9"
     ignore_errors: True
+
+- hosts: centos3
+  serial: 1
+  vars:
+    ver_no: "{{VER|default('4.5.0')}}"
+    build_no:  "{{BUILD_NO|default(2601)}}"
+    flavor:  "{{FLAVOR|default('watson')}}"
+    base_url:  http://172.23.126.166/builds/latestbuilds/couchbase-server/{{flavor}}/
+    build_pkg: "couchbase-server-enterprise-{{ver_no}}-{{build_no}}-centos7.x86_64.rpm"
+    url_var: "{{base_url}}/{{build_no}}/{{build_pkg}}"
+    build_url: "{{URL|default(url_var)}}"
+    rpm_path: "/tmp/couchbase.rpm"
+  remote_user: root
+  tasks:
   - debug: msg="Download {{build_url}}"
   - name: download binary
     get_url: url="{{build_url}}" dest="{{rpm_path}}"
+    
+- hosts: centos3
+  vars:
+    ver_no: "{{VER|default('4.5.0')}}"
+    build_no:  "{{BUILD_NO|default(2601)}}"
+    flavor:  "{{FLAVOR|default('watson')}}"
+    base_url:  http://172.23.126.166/builds/latestbuilds/couchbase-server/{{flavor}}/
+    build_pkg: "couchbase-server-enterprise-{{ver_no}}-{{build_no}}-centos7.x86_64.rpm"
+    url_var: "{{base_url}}/{{build_no}}/{{build_pkg}}"
+    build_url: "{{URL|default(url_var)}}"
+    rpm_path: "/tmp/couchbase.rpm"
+  remote_user: root
+  tasks:
   - name: install couchbase
     yum: name="{{rpm_path}}"
   - name: alt start 
@@ -77,4 +141,3 @@
     shell: iptables -F
   - name: wait for install done
     wait_for: port=8091 delay=10
-
