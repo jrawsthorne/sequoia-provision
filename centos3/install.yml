@@ -32,6 +32,7 @@
   tasks:
   - name: start elastic search
     shell: "/root/start_es.sh"
+    ignore_errors: True
 
 - hosts: centos3
   vars:
