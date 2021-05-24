@@ -51,6 +51,7 @@
     ignore_errors: True
   - name: chmod /data to 777
     shell: "chmod -R 777 /data"
+    ignore_errors: True
   - name: stop memcached
     shell: "ps aux | grep 'memcached' | awk '{print $2}' | xargs kill -s 9"
     ignore_errors: True
